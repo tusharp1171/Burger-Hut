@@ -1,0 +1,21 @@
+<div class="customer-section">
+  <h2>❤️ Happy Customers</h2>
+
+  <div class="customer-feed">
+    <div class="customer-post" *ngFor="let post of customerPosts">
+      <div class="media-container">
+        <ng-container *ngIf="post.type === 'image'; else videoBlock">
+          <img [src]="post.media" alt="Customer post" class="media" />
+        </ng-container>
+        <ng-template #videoBlock>
+          <video class="media" [src]="post.media" controls muted></video>
+        </ng-template>
+      </div>
+
+      <div class="post-details">
+        <h4>{{ post.name }}</h4>
+        <p>{{ post.caption }}</p>
+      </div>
+    </div>
+  </div>
+</div>

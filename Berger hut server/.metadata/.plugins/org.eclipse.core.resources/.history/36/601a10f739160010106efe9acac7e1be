@@ -1,0 +1,8 @@
+package com.burgerhut.dto;
+
+@Data
+public class AddCartItemRequest {
+    private Long userId;
+    private Long menuItemId;
+    private int quantity;
+}

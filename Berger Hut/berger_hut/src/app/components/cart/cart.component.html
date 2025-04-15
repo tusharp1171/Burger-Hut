@@ -1,0 +1,33 @@
+<div class="cart-wrapper" *ngIf="cart">
+  <h2 class="cart-title">Your Cart</h2>
+
+  <div class="cart-item" *ngFor="let item of cart.items">
+    <div class="cart-item-details">
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="menu-item-name">{{ item.menuItem.name }}</p>
+          <p class="item-price">
+            Price: ₹{{ item.menuItem.price }} x {{ item.quantity }} = ₹{{ item.menuItem.price * item.quantity }}
+          </p>
+        </div>
+        <img [src]="item.menuItem.imageUrl" alt="{{ item.menuItem.name }}" class="menu-item-image" />
+      </div>
+
+      <div class="quantity-controls">
+        <button (click)="decreaseQuantity(item)" class="control-button">−</button>
+        <span class="quantity">{{ item.quantity }}</span>
+        <button (click)="increaseQuantity(item)" class="control-button">+</button>
+      </div>
+
+      <button *ngIf="item.quantity === 1" (click)="removeCartItem(item.id!)" class="remove-button">
+        🗑️ Remove
+      </button>
+    </div>
+    <hr class="divider" />
+  </div>
+
+  <h3 class="total-price">Total: ₹{{ getTotalPrice() }}</h3>
+
+  <!-- Place Order Button -->
+  <button (click)="placeOrder()" class="place-order-button">Place Order</button>
+</div>

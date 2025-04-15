@@ -1,0 +1,21 @@
+<header class="header">
+  <div class="container">
+    <a routerLink="/" class="logo">Burger Hut</a>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links" [ngClass]="{ 'active': navOpen }">
+      <li><a routerLink="dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeNav()">Dashboard</a></li>
+      <li><a routerLink="orders" routerLinkActive="active" (click)="closeNav()">Pending Orders</a></li>
+      <li><a routerLink="menu" routerLinkActive="active" (click)="closeNav()">Add Menu</a></li>
+      <li><a routerLink="offers" routerLinkActive="active" (click)="closeNav()">Add Offers</a></li>
+    </ul>
+
+    <!-- Hamburger Menu for Mobile View -->
+    <div class="hamburger" (click)="toggleNav()">
+      <i class="bx bx-menu"></i>
+    </div>
+  </div>
+</header>
+
+<!-- Main content -->
+<router-outlet></router-outlet>

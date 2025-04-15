@@ -1,0 +1,78 @@
+package com.burgerhut.service.impl;
+
+import com.burgerhut.entity.MenuItem;
+import com.burgerhut.enums.MenuCategory;
+import com.burgerhut.exception.ResourceNotFoundException;
+import com.burgerhut.repository.MenuItemRepository;
+import com.burgerhut.service.MenuItemService;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class MenuItemServiceImpl implements MenuItemService {
+
+	@Autowired
+    private  MenuItemRepository menuItemRepository;
+
+    @Override
+    public MenuItem saveMenuItem(MenuItem item) {
+        return menuItemRepository.save(item);
+    }
+
+    @Override
+    public MenuItem updateMenuItem(Long id, MenuItem updatedItem) {
+        MenuItem existingItem = menuItemRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("MenuItem not found with ID: " + id));
+
+        existingItem.setName(updatedItem.getName());
+        existingItem.setDescription(updatedItem.getDescription());
+        existingItem.setPrice(updatedItem.getPrice());
+        existingItem.setAvailable(updatedItem.getAvailable());
+        existingItem.setCategory(updatedItem.getCategory());
+        existingItem.setImageUrl(updatedItem.getImageUrl());
+
+        return menuItemRepository.save(existingItem);
+    }
+
+    @Override
+    public MenuItem getMenuItemById(Long id) {
+        return menuItemRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("MenuItem not found with ID: " + id));
+    }
+
+    @Override
+    public List<MenuItem> getAllMenuItems() {
+        return menuItemRepository.findAll();
+    }
+
+    @Override
+    public List<MenuItem> getAvailableItems() {
+        return menuItemRepository.findByAvailableTrue();
+    }
+
+    @Override
+    public List<MenuItem> getByCategory(MenuCategory category) {
+        return menuItemRepository.findByCategory(category);
+    }
+
+    @Override
+    public void deleteMenuItem(Long id) {
+        if (!menuItemRepository.existsById(id)) {
+            throw new ResourceNotFoundException("MenuItem not found with ID: " + id);
+        }
+
+        // Check if there are any related order items
+        List<OrderItem> orderItems = orderItemRepository.findByMenuItemId(id);
+        if (!orderItems.isEmpty()) {
+            throw new DataIntegrityViolationException("Cannot delete the menu item because it has related order items.");
+        }
+
+        // If no related order items, proceed with deleting the menu item
+        menuItemRepository.deleteById(id);
+    }
+}

@@ -1,0 +1,38 @@
+<div class="pending-orders-container">
+  <h2 class="title">🕶️ Pending Orders</h2>
+
+  <div *ngIf="pendingOrders.length > 0; else noOrders">
+    <div *ngFor="let order of pendingOrders; let i = index" class="order-card">
+      <div class="order-header">
+        <h4>Order #{{ i + 1 }} <small>(ID: {{ order.id }})</small></h4>
+        <span class="status">{{ order.status }}</span>
+      </div>
+
+      <p class="created-at">🕒 {{ order.createdAt | date: 'short' }}</p>
+
+      <div class="items-list">
+        <h5>🧾 Items:</h5>
+        <ul>
+          <li *ngFor="let item of order.items">
+            <div class="item-row">
+              <span class="item-name">{{ item.menuItem.name }}</span>
+              <span class="item-qty">{{ item.quantity }} x ${{ item.menuItem.price }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="total">
+        <strong>Total: ${{ calculateTotal(order.items) | number: '1.2-2' }}</strong>
+      </div>
+
+      <button class="complete-btn" (click)="completeOrder(order.id!)">✅ Complete Order</button>
+    </div>
+  </div>
+
+  <ng-template #noOrders>
+    <div class="no-orders">
+      <p>No pending orders at the moment 😌</p>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,34 @@
+package com.burgerhut.service.impl;
+
+
+import com.burgerhut.entity.Cart;
+import com.burgerhut.entity.User;
+import com.burgerhut.repository.CartRepository;
+import com.burgerhut.service.CartService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class CartServiceImpl implements CartService {
+
+    private final CartRepository cartRepository;
+
+    @Override
+    public Cart getCartByUser(User user) {
+        return cartRepository.findByUser(user)
+                .orElseGet(() -> cartRepository.save(new Cart(null, user)));
+    }
+
+    @Override
+    public Cart saveCart(Cart cart) {
+        return cartRepository.save(cart);
+    }
+
+    @Override
+    public void clearCart(Long cartId) {
+        cartRepository.deleteById(cartId);
+    }
+}

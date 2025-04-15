@@ -1,0 +1,10 @@
+package com.burgerhut.dto;
+
+public class CartItemdto {
+	
+	  private Long id;
+	    private int quantity;
+	    private MenuItem menuItem;
+	    private Cart cart;
+
+}

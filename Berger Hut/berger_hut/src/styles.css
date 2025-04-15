@@ -1,0 +1,19 @@
+/* A safe global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background-color: #2f2d2d; /* or any dark color you like */
+    color: white; /* makes global text white */
+    font-family: 'Poppins', sans-serif; /* optional, for better look */
+  }
+  /* app-root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  } */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

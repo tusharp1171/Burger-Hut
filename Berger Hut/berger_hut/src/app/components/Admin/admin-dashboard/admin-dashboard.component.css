@@ -1,0 +1,278 @@
+:root {
+  --bg-dark: #121212;
+  --bg-card: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --accent: #4fc3f7;
+  --highlight: #81c784;
+  --border: #2a2a2a;
+  --hover: #292929;
+  --bg-alt: #2c2c2c; /* Alternate background color for alternating order items */
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--accent);
+}
+
+.stats-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.stats-card {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.stats-card:hover {
+  background-color: var(--hover);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.stats-card.active {
+  border-color: var(--highlight);
+  box-shadow: 0 0 0 2px var(--highlight);
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.stat-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.count {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.amount {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--highlight);
+  margin-top: 0.3rem;
+}
+
+/* Orders section */
+.orders-list {
+  margin-top: 3rem;
+  background-color: var(--bg-card);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.orders-title {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  background-color: var(--bg-card);
+  transition: background-color 0.3s ease;
+}
+
+.order-item:nth-child(even) {
+  background-color: var(--bg-alt); /* Alternate background color for even orders */
+}
+
+.order-item:hover {
+  background-color: var(--hover);
+}
+
+.order-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0; /* Remove margin on the last order item */
+}
+
+.order-left {
+  flex: 1;
+}
+
+.order-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.order-status {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.order-amount {
+  font-weight: bold;
+  color: var(--highlight);
+  margin-top: 0.3rem;
+}
+
+/* Mobile View Styles */
+@media (max-width: 768px) {
+  .dashboard-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr; /* Two columns for better fit on tablets and large mobiles */
+  }
+
+  .stats-card {
+    padding: 1rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+  }
+
+  .stat-value {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .count {
+    font-size: 1.8rem;
+  }
+
+  .amount {
+    font-size: 1rem;
+  }
+
+  /* Orders section */
+  .orders-list {
+    padding: 1.5rem;
+  }
+
+  .orders-title {
+    font-size: 1.4rem;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-left {
+    text-align: left;
+  }
+
+  .order-right {
+    text-align: left;
+    align-items: flex-start;
+    margin-top: 1rem;
+  }
+
+  .order-status {
+    font-size: 0.8rem;
+  }
+
+  .order-amount {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-title {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr; /* Stack cards vertically on small screens */
+  }
+
+  .stats-card {
+    padding: 0.8rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .stat-value {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .count {
+    font-size: 1.5rem;
+  }
+
+  .amount {
+    font-size: 0.9rem;
+  }
+
+  .orders-list {
+    padding: 1rem;
+  }
+
+  .orders-title {
+    font-size: 1.2rem;
+  }
+
+  .order-item {
+    flex-direction: column;
+    padding: 0.8rem;
+  }
+
+  .order-left {
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  .order-right {
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  .order-status {
+    font-size: 0.8rem;
+  }
+
+  .order-amount {
+    font-size: 0.9rem;
+  }
+}

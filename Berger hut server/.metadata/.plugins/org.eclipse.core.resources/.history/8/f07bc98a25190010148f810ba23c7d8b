@@ -1,0 +1,15 @@
+package com.burgerhut.service;
+
+import com.burgerhut.entity.Order;
+import com.burgerhut.entity.User;
+import com.burgerhut.enums.OrderStatus;
+
+import java.util.List;
+
+public interface OrderService {
+    Order placeOrder(Order order);
+    Order updateOrderStatus(Long orderId, OrderStatus status);
+    Order getOrderById(Long id);
+    List<Order> getOrdersByUser(User user);
+    List<Order> getAllOrders();
+}

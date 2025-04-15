@@ -1,0 +1,64 @@
+package com.burgerhut.service.impl;
+
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.burgerhut.dto.PaymentRequest;
+import com.burgerhut.entity.Order;
+import com.burgerhut.entity.Payment;
+import com.burgerhut.enums.PaymentStatus;
+import com.burgerhut.exception.ResourceNotFoundException;
+import com.burgerhut.repository.OrderRepository;
+import com.burgerhut.repository.PaymentRepository;
+import com.burgerhut.service.PaymentService;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class PaymentServiceImpl implements PaymentService {
+
+	@Autowired
+    private PaymentRepository paymentRepository;
+	
+	@Autowired
+    private OrderRepository orderRepository;
+
+    @Override
+    public Payment processPayment(Payment payment) {
+        return paymentRepository.save(payment);
+    }
+
+    @Override
+    public Optional<Payment> getPaymentByOrder(Order order) {
+        return paymentRepository.findByOrder(order);
+    }
+
+    @Override
+    public Payment getPaymentById(Long id) {
+        return paymentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Payment not found with ID: " + id));
+    }
+    
+    public Payment makePayment(PaymentRequest request) {
+        Order order = orderRepository.findById(request.getOrderId())
+            .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        double totalAmount = order.getTotalAmount(); // ⬅ Using transient method
+
+        Payment payment = Payment.builder()
+            .order(order)
+            .paymentMethod(request.getPaymentMethod())
+            .paymentStatus(PaymentStatus.PAID)
+            .paymentDate(LocalDateTime.now())
+            .amount(totalAmount)
+            .build();
+
+        return paymentRepository.save(payment);
+    }
+
+}

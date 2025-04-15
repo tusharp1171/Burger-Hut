@@ -1,0 +1,73 @@
+package com.burgerhut.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.burgerhut.entity.Order;
+
+import com.burgerhut.exception.ResourceNotFoundException; 
+import com.burgerhut.service.OrderService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("	")
+@RequiredArgsConstructor
+public class OrderController {
+
+	@Autowired
+    private OrderService orderService;
+
+    @GetMapping
+    public ResponseEntity<List<Order>> getAll() {
+        return ResponseEntity.ok(orderService.getAllOrders());
+    }
+
+    @PostMapping
+    public ResponseEntity<Order> placeOrder(@RequestBody Order order) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.placeOrder(order));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+        Order order = orderService.getOrderById(id);
+        if (order != null) {
+            return ResponseEntity.ok(order);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found");
+        }
+    }
+    
+    @GetMapping("/pending")
+    public ResponseEntity<List<Order>> getPendingOrders() {
+        List<Order> pendingOrders = orderService.getPendingOrders();
+        return ResponseEntity.ok(pendingOrders);
+    }
+    
+    @PutMapping("/{id}/complete")
+    public ResponseEntity<Map<String, String>> completeOrder(@PathVariable Long id) {
+        try {
+            orderService.completeOrder(id);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Order marked as completed.");
+            return ResponseEntity.ok(response);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(Map.of("error", "Order not found."));
+        }
+    }
+
+
+
+}

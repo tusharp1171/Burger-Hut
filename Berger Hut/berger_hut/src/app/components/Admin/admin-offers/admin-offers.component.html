@@ -1,0 +1,86 @@
+<div class="container">
+    <!-- LEFT SIDE - FORM -->
+    <div class="left-panel">
+      <h2>{{ selectedOfferId ? '✏️ Update Offer' : '🎁 Add New Offer' }}</h2>
+  
+      <form [formGroup]="offerForm" (ngSubmit)="onSubmit()" class="offer-form">
+        <div class="form-group">
+          <label>Title</label>
+          <input formControlName="title" type="text" />
+        </div>
+  
+        <div class="form-group">
+          <label>Description</label>
+          <input formControlName="description" type="text" />
+        </div>
+  
+        <div class="form-group">
+          <label>Code</label>
+          <input formControlName="code" type="text" />
+        </div>
+  
+        <div class="form-group">
+          <label>Valid Till</label>
+          <input formControlName="validTill" type="date" />
+        </div>
+  
+        <div class="form-group">
+          <label>Image</label>
+          <input formControlName="image" type="file" (change)="onFileChange($event)" />
+          <div *ngIf="currentImagePreview">
+            <img [src]="currentImagePreview" alt="Image Preview" width="100" height="100" />
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>Discount (%)</label>
+          <input formControlName="percentageOff" type="number" />
+        </div>
+  
+        <div class="button-group">
+          <button type="submit" [disabled]="offerForm.invalid">
+            {{ selectedOfferId ? 'Update Offer' : 'Create Offer' }}
+          </button>
+          <button type="button" (click)="resetForm()" *ngIf="selectedOfferId">Cancel</button>
+        </div>
+  
+        <div *ngIf="successMessage" class="alert success">{{ successMessage }}</div>
+        <div *ngIf="errorMessage" class="alert error">{{ errorMessage }}</div>
+      </form>
+    </div>
+  
+    <!-- RIGHT SIDE - TABLE -->
+    <div class="right-panel">
+      <h3>📋 Current Offers</h3>
+      <div class="table-wrapper">
+      <table class="offers-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Code</th>
+            <th>Discount (%)</th>
+            <th>Valid Till</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let offer of offers" (click)="editOffer(offer)">
+            <td>{{ offer.title }}</td>
+            <td>{{ offer.code }}</td>
+            <td>{{ offer.percentageOff }}%</td>
+            <td>{{ offer.validTill | date: 'yyyy-MM-dd' }}</td>
+            <td>
+              <img [src]="getImageUrl(offer.image)" alt="Offer Image" width="60" height="60" class="offer-img" />
+            </td>
+            <td>
+              <button class="delete-btn" (click)="deleteOffer(offer.id!)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      
+      </table>
+    </div>
+  </div>
+  </div>
+  

@@ -1,0 +1,19 @@
+<div class="menu-container">
+    <div *ngFor="let category of categories" class="category-section">
+      <h2 class="category-title">{{ category.name }}</h2>
+      <div class="items-scroll-container">
+        <div *ngFor="let item of category.menuItems" class="menu-card" [class.unavailable]="!item.available">
+          <img [src]="item.imageUrl" alt="{{ item.name }}" class="item-image" />
+          <div class="item-details">
+            <h3>{{ item.name }}</h3>
+            <p class="item-description">{{ item.description }}</p>
+            <p class="price">₹{{ item.price }}</p>
+            <button mat-raised-button color="primary" [disabled]="!item.available" (click)="addToCart(item)">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

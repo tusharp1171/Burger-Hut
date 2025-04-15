@@ -1,0 +1,48 @@
+package com.burgerhut.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.burgerhut.entity.Review;
+import com.burgerhut.repository.MenuItemRepository;
+import com.burgerhut.repository.UserRepository;
+import com.burgerhut.service.ReviewService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/reviews")
+@RequiredArgsConstructor
+public class ReviewController {
+
+    private final ReviewService reviewService;
+    private final UserRepository userRepository;
+    private final MenuItemRepository menuItemRepository;
+
+    // ✅ Add review
+    @PostMapping
+    public ResponseEntity<?> addReview(@RequestBody Review review) {
+        return ResponseEntity.ok(reviewService.leaveReview(review));
+    }
+
+    // ✅ Get reviews by menu item ID
+    @GetMapping("/menu/{menuItemId}")
+    public ResponseEntity<?> getReviewsByMenuItem(@PathVariable Long menuItemId) {
+        return menuItemRepository.findById(menuItemId)
+                .<ResponseEntity<?>>map(menuItem -> ResponseEntity.ok(reviewService.getReviewsByMenuItem(menuItem)))
+                .orElse(ResponseEntity.badRequest().body("Menu item not found"));
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getReviewsByUser(@PathVariable Long userId) {
+        return userRepository.findById(userId)
+                .<ResponseEntity<?>>map(user -> ResponseEntity.ok(reviewService.getReviewsByUser(user)))
+                .orElse(ResponseEntity.badRequest().body("User not found"));
+    }
+
+}

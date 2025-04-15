@@ -1,0 +1,79 @@
+package com.burgerhut.exception;
+
+import java.io.IOException;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.burgerhut.dto.ErrorResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    private final ObjectMapper mapper;
+
+    public GlobalExceptionHandler() {
+        this.mapper = new ObjectMapper();
+        this.mapper.registerModule(new JavaTimeModule());
+    }
+
+    // Handle custom application exception
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                e.getMessage(),
+                "INTERNAL_ERROR"
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // Handle UsernameAlreadyTakenException
+    @ExceptionHandler(UsernameAlreadyTakenException.class)
+    public void handleUsernameAlreadyTakenException(UsernameAlreadyTakenException ex, HttpServletRequest request,
+                                                    HttpServletResponse response) throws IOException {
+        writeErrorResponse(response, HttpStatus.BAD_REQUEST, ex.getMessage(), request.getRequestURI());
+    }
+
+    // Handle ResourceNotFoundException and InvalidDataException
+    @ExceptionHandler({ ResourceNotFoundException.class, InvalidDataException.class })
+    public void handleCustomExceptions(Exception ex, HttpServletRequest request,
+                                       HttpServletResponse response) throws IOException {
+        writeErrorResponse(response, HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI());
+    }
+
+    // Handle any unexpected exceptions (fallback)
+    @ExceptionHandler(Exception.class)
+    public void handleUnexpectedException(Exception ex, HttpServletRequest request,
+                                          HttpServletResponse response) throws IOException {
+        // Optional: log the exception
+        // ex.printStackTrace(); or use a logger
+        writeErrorResponse(response, HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred", request.getRequestURI());
+    }
+
+    // === Helper method to build and send the JSON error response ===
+    private void writeErrorResponse(HttpServletResponse response, HttpStatus status, String message, String path) throws IOException {
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(status.value());
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", Instant.now());
+        body.put("status", status.value());
+        body.put("error", status.getReasonPhrase());
+        body.put("message", message);
+        body.put("path", path);
+
+        mapper.writeValue(response.getOutputStream(), body);
+    }
+}

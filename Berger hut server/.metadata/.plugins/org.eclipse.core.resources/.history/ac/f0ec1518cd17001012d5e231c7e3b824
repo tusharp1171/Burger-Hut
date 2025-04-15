@@ -1,0 +1,27 @@
+package com.burgerhut.service.impl;
+
+import com.burgerhut.entity.Offer;
+import com.burgerhut.repository.OfferRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class OfferServiceimpl {
+	@Autowired
+	private OfferRepository offerRepository;
+
+	public List<Offer> getAllOffers() {
+		return offerRepository.findAll();
+	}
+
+	public Offer createOffer(Offer offer) {
+		return offerRepository.save(offer);
+	}
+	 public Double getDiscountPercentageByCode(String code) {
+	        Optional<Offer> optionalOffer = offerRepository.findByCode(code);
+	        return optionalOffer.map(Offer::getPercentageOff).orElse(null); // or throw exception if not found
+	    }
+}

@@ -1,0 +1,176 @@
+<section class="hero">
+  <video autoplay muted loop playsinline class="hero-video" poster="assets/images/hero-background1.jpg">
+    <source src="assets/videos/burger-grill.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h1 class="hero-title">Bite Into Happiness at Burger Hut</h1>
+        <p class="hero-subtitle">
+          Handcrafted burgers made with love, fresh ingredients, and bold flavors.
+        </p>
+        <div class="hero-buttons">
+          <a href="/cart" class="btn primary">Order Now</a>
+          <a href="/menu" class="btn secondary">View Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-burgers" id="menu">
+    <div class="section-title">
+      <h2>🍽️ Featured Burgers</h2>
+      <p>Crafted to perfection. Taste the difference.</p>
+    </div>
+    <div class="burger-grid">
+      <div class="burger-card">
+        <img src="assets/images/burger1.jpg" alt="Classic Cheeseburger" />
+        <div class="burger-info">
+          <h3>Classic Cheeseburger</h3>
+          <p>Juicy beef patty, cheddar cheese, lettuce & special sauce</p>
+          <span class="price">$8.99</span>
+        </div>
+      </div>
+      <div class="burger-card">
+        <img src="assets/images/burger2.jpg" alt="Smoky BBQ Bacon" />
+        <div class="burger-info">
+          <h3>Smoky BBQ Bacon</h3>
+          <p>Grilled bacon, BBQ glaze, crispy onions & gouda</p>
+          <span class="price">$10.49</span>
+        </div>
+      </div>
+      <div class="burger-card">
+        <img src="assets/images/burger3.jpg" alt="Spicy Jalapeño Melt" />
+        <div class="burger-info">
+          <h3>Spicy Jalapeño Melt</h3>
+          <p>Fiery jalapeños, pepper jack cheese & chipotle mayo</p>
+          <span class="price">$9.49</span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-btn">
+      <a href="/menu" class="btn-view-menu">View Full Menu</a>
+    </div>
+  </section>
+  
+
+  <section class="about" id="about">
+    <div class="about-container">
+      <div class="about-image">
+        <img src="assets/images/chef-or-burger.png" alt="Chef or Signature Burger" />
+      </div>
+      <div class="about-content">
+        <h2>Our Passion for Burgers Started with a Fire…</h2>
+        <p>
+          From a tiny grill in a backyard to a full-blown burger revolution — Burger Hut was born out of pure love for
+          bold flavors and handcrafted perfection. Every patty is grilled to order, every bun is toasted just right, and
+          every bite tells a story. We don’t just serve burgers — we serve happiness, wrapped in paper and melted cheese.
+        </p>
+        <div class="fun-facts">
+          <div class="fact">
+            <span class="emoji">🍔</span>
+            <p><strong>50,000+</strong><br />Burgers Served</p>
+          </div>
+          <div class="fact">
+            <span class="emoji">⭐</span>
+            <p><strong>4.9</strong><br />Rated on Google</p>
+          </div>
+          <div class="fact">
+            <span class="emoji">🧀</span>
+            <p><strong>100%</strong><br />Fresh Ingredients</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="order-section" id="order">
+    <h2>📦 Order Your Burger, Your Way</h2>
+    <p class="order-subtitle">Fast, fresh, and delivered to your door or ready for pickup.</p>
+  
+    <div class="toggle-container">
+      <button class="toggle-btn active" id="pickupBtn">Pickup</button>
+      <button class="toggle-btn" id="deliveryBtn">Delivery</button>
+    </div>
+  
+    <div class="order-options">
+      <div class="delivery-partners">
+        <p>Order via:</p>
+        <div class="partner-logos">
+          <a href="#" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_Eats_2020_logo.svg" alt="Uber Eats"></a>
+          <a href="#" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/DoorDash_Logo.png" alt="DoorDash"></a>
+          <a href="#" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Grubhub_Logo.svg" alt="GrubHub"></a>
+        </div>
+      </div>
+  
+      <div class="direct-order">
+        <p>Want to skip the middleman?</p>
+        <a href="#menu" class="direct-order-btn">🍔 Order Directly from Us</a>
+      </div>
+    </div>
+  </section>
+  
+  
+  <section class="video-experience" id="experience">
+    <div class="video-content">
+      <h2>🎥 A Day at Burger Hut</h2>
+      <p>From the sizzle of the grill to the smiles of our customers — here’s a taste of what makes us special.</p>
+      <div class="video-wrapper">
+        <video id="burgerVideo" autoplay muted loop playsinline poster="assets/images/hero-background1.jpg">
+          <source src="assets/videos/burger-grill.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="audio-toggle">
+        <!-- <button onclick="toggleMusic()" id="musicBtn">🔇 Play Music</button> -->
+        <audio id="backgroundMusic" loop>
+          <source src="" type="audio/mp3" />
+        </audio>
+      </div>
+    </div>
+  </section>
+  <section class="testimonials" id="testimonials">
+    <h2>⭐ What Our Customers Say</h2>
+    <div class="carousel">
+      <div
+        *ngFor="let t of testimonials; let i = index"
+        class="testimonial"
+        [class.active]="i === current"
+      >
+        <p>{{ t.text }}</p>
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="user-info">
+          <img [src]="t.img" [alt]="t.user" />
+          <span>{{ t.user }}</span>
+        </div>
+      </div>
+  
+      <div class="carousel-controls">
+        <button (click)="prevTestimonial()">←</button>
+        <button (click)="nextTestimonial()">→</button>
+      </div>
+    </div>
+  </section>
+  <section class="contact-section" id="contact">
+    <h2>📍 Find Us at Burger Hut</h2>
+    <div class="contact-container">
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.265116601137!2d144.96328!3d-37.814217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43c8b2c2b7%3A0x2e0aa58ecaf04a92!2sBurger%20Hut!5e0!3m2!1sen!2sau!4v1615980509795!5m2!1sen!2sau"
+          width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+      <div class="contact-info">
+        <p><strong>📍 Address:</strong> 123 Burger Lane, Sydney, NSW 2000</p>
+        <p><strong>📞 Phone:</strong> <a href="tel:+61123456789">+61 123 456 789</a></p>
+        <p><strong>📧 Email:</strong> <a href="mailto:hello@burgerhut.com">hello burgerhut.com</a></p>
+        <p><strong>🕒 Hours:</strong><br>
+          Mon–Fri: 11am – 10pm<br>
+          Sat–Sun: 12pm – 11pm
+        </p>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Burger+Hut" target="_blank" class="btn-direction">
+          🚗 Get Directions
+        </a>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,26 @@
+<div class="offers-container">
+  <h2 class="heading">🔥 Today's Exclusive Offers</h2>
+
+  <div class="offer-card" *ngFor="let offer of offers">
+    <img [src]="offer.image" alt="{{ offer.title }}" class="offer-img" />
+
+    <div class="offer-info">
+      <h3>{{ offer.title }}</h3>
+      <p>{{ offer.description }}</p>
+
+      <div class="details">
+        <span class="code">
+          🏷️ Code: <strong>{{ offer.code }}</strong>
+        </span>
+
+        <span class="valid">
+          📅 Valid till: {{ offer.validTill | date: 'mediumDate' }}
+        </span>
+
+        <span class="percentage-off" *ngIf="offer.percentageOff">
+          🎉 {{ offer.percentageOff }}% OFF
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+package com.burgerhut.entity;
+
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "payments")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Payment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String paymentMethod; // CASH, CARD, UPI, etc.
+
+    private Double amount;
+
+    private LocalDateTime paymentDate;
+
+    private String paymentStatus; // SUCCESS, FAILED, PENDING
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+}

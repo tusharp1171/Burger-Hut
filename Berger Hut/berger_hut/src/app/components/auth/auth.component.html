@@ -1,0 +1,57 @@
+<div class="body">
+  <div class="auth-container">
+    <h2>{{ isSignupMode ? 'Sign Up' : 'Sign In' }}</h2>
+  
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <div *ngIf="isSignupMode">
+        <input formControlName="username" placeholder="Username" />
+        <div class="error" *ngIf="authForm.get('username')?.touched && authForm.get('username')?.invalid">
+          Username is required
+        </div>
+  
+        <input formControlName="email" placeholder="Email" type="email" />
+        <div class="error" *ngIf="authForm.get('email')?.touched && authForm.get('email')?.invalid">
+          Valid email is required
+        </div>
+  
+        <input formControlName="password" placeholder="Password" type="password" />
+        <div class="error" *ngIf="authForm.get('password')?.touched && authForm.get('password')?.invalid">
+          Password is required (min 6 chars)
+        </div>
+  
+        <input formControlName="confirmPassword" placeholder="Confirm Password" type="password" />
+        <div class="error" *ngIf="authForm.errors?.['passwordMismatch'] && authForm.get('confirmPassword')?.touched">
+          Passwords do not match
+        </div>
+  
+        <input formControlName="mobile" placeholder="Mobile Number" />
+        <div class="error" *ngIf="authForm.get('mobile')?.touched && authForm.get('mobile')?.invalid">
+          Valid 10-digit mobile is required
+        </div>
+      </div>
+  
+      <div *ngIf="!isSignupMode">
+        <input formControlName="username" placeholder="Username" />
+        <div class="error" *ngIf="authForm.get('username')?.touched && authForm.get('username')?.invalid">
+          Username is required
+        </div>
+  
+        <input formControlName="password" placeholder="Password" type="password" />
+        <div class="error" *ngIf="authForm.get('password')?.touched && authForm.get('password')?.invalid">
+          Password is required
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="authForm.invalid">
+        {{ isSignupMode ? 'Sign Up' : 'Sign In' }}
+      </button>
+    </form>
+  
+    <p class="message">{{ message }}</p>
+  
+    <button (click)="toggleMode()" class="switch-btn">
+      Switch to {{ isSignupMode ? 'Sign In' : 'Sign Up' }}
+    </button>
+  </div>
+  
+</div>

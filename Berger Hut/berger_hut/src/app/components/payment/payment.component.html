@@ -1,0 +1,20 @@
+<div class="payment-container">
+  <h2 class="title">Payment for Order #{{ orderId }}</h2>
+
+  <label for="paymentMethod" class="label">Select Payment Method:</label>
+  <select id="paymentMethod" [(ngModel)]="selectedMethod" class="dropdown">
+    <option *ngFor="let method of paymentMethods" [value]="method">
+      {{ method }}
+    </option>
+  </select>
+
+  <button class="pay-button" (click)="makePayment()">💳 Make Payment</button>
+
+  <div *ngIf="paymentSuccess" class="success-message">
+    ✅ Payment successful! Thank you for your order.
+  </div>
+
+  <div *ngIf="paymentError" class="error-message">
+    ❌ Payment failed. Please try again.
+  </div>
+</div>

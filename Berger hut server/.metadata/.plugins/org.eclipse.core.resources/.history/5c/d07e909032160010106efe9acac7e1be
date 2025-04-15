@@ -1,0 +1,52 @@
+package com.burgerhut.service.impl;
+
+
+import com.burgerhut.entity.Order;
+import com.burgerhut.entity.User;
+import com.burgerhut.enums.OrderStatus;
+import com.burgerhut.exception.ResourceNotFoundException;
+import com.burgerhut.repository.OrderRepository;
+import com.burgerhut.service.OrderService;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class OrderServiceImpl implements OrderService {
+
+	@Autowired
+    private OrderRepository orderRepository;
+
+    @Override
+    public Order placeOrder(Order order) {
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public Order updateOrderStatus(Long orderId, OrderStatus status) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + orderId));
+        order.setStatus(status);
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + id));
+    }
+
+    @Override
+    public List<Order> getOrdersByUser(User user) {
+        return orderRepository.findByUser(user);
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+}

@@ -1,0 +1,5 @@
+package com.burgerhut.enums;
+
+public enum PaymentMethod {
+
+}

@@ -1,0 +1,156 @@
+/* CONTAINER */
+.pending-orders-container {
+  padding: 2rem 1rem;
+  background-color: #181818;
+  color: #fff;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* TITLE */
+.title {
+  font-size: 2rem;
+  color: #00d1b2;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ORDER CARD */
+
+
+.order-card {
+  background-color: #2d2d2d;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s;
+}
+
+.order-card:hover {
+  transform: translateY(-3px);
+}
+
+/* HEADER */
+.order-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.order-header h4 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #f9f9f9;
+}
+
+.status {
+  background-color: #00d1b2;
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* DATE */
+.created-at {
+  font-size: 0.85rem;
+  color: #bbb;
+  margin-top: 4px;
+}
+
+/* ITEM LIST */
+.items-list h5 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.item-name {
+  color: #ddd;
+}
+
+.item-qty {
+  color: #00d1b2;
+}
+
+/* TOTAL */
+.total {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* COMPLETE BUTTON */
+.complete-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #00d1b2, #3b82f6);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 209, 178, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+
+.complete-btn:hover {
+  background: linear-gradient(135deg, #20e3b2, #1e90ff);
+  transform: translateY(-2px);
+}
+
+/* EMPTY STATE */
+.no-orders {
+  text-align: center;
+  padding: 2rem;
+  color: #aaa;
+  font-size: 1.1rem;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-header h4 {
+    font-size: 1rem;
+  }
+
+  .status {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  .item-row {
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+  }
+
+  .total {
+    font-size: 1rem;
+  }
+
+  .complete-btn {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+}
