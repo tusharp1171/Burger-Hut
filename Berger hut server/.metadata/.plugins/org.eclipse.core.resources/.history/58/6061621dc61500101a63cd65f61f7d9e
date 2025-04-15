@@ -1,0 +1,19 @@
+package com.burgerhut.controller;
+
+@RestController
+@RequestMapping("/api/reviews")
+@RequiredArgsConstructor
+public class ReviewController {
+
+    private final ReviewService reviewService;
+
+    @PostMapping
+    public ResponseEntity<Review> addReview(@RequestBody Review review) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.addReview(review));
+    }
+
+    @GetMapping("/menu/{menuItemId}")
+    public ResponseEntity<List<Review>> getByMenuItem(@PathVariable Long menuItemId) {
+        return ResponseEntity.ok(reviewService.getByMenuItemId(menuItemId));
+    }
+}

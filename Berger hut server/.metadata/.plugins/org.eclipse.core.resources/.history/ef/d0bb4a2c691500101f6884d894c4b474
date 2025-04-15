@@ -1,0 +1,12 @@
+package com.burgerhut.service;
+
+import com.burgerhut.entity.Cart;
+import com.burgerhut.entity.User;
+
+import java.util.Optional;
+
+public interface CartService {
+    Cart getCartByUser(User user);
+    Cart saveCart(Cart cart);
+    void clearCart(Long cartId);
+}

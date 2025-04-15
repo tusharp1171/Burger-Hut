@@ -1,0 +1,92 @@
+<div class="container-fluid mt-4 text-white" style="background-color: #1e1e2f; min-height: 100vh;">
+  <h2 class="mb-4 text-info">🍔 Admin - Add New Menu Item</h2>
+  <div class="row">
+    <!-- FORM -->
+    <div class="col-md-3 mb-4">
+      <form (ngSubmit)="onSubmit()" #menuForm="ngForm" enctype="multipart/form-data" class="p-3 bg-dark rounded shadow">
+        <div class="form-group mb-3">
+          <label>Name</label>
+          <input type="text" class="form-control" [(ngModel)]="menuItem.name" name="name" required />
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Description</label>
+          <textarea class="form-control" [(ngModel)]="menuItem.description" name="description"></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Price</label>
+          <input type="number" class="form-control" [(ngModel)]="menuItem.price" name="price" required />
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Available</label>
+          <select class="form-control" [(ngModel)]="menuItem.available" name="available">
+            <option [value]="true">Yes</option>
+            <option [value]="false">No</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Category</label>
+          <select class="form-control" [(ngModel)]="menuItem.categoryId" name="categoryId" required>
+            <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Image</label>
+          <input type="file" class="form-control" (change)="onFileSelected($event)" required />
+          <div *ngIf="imagePreview" class="mt-2">
+            <img [src]="imagePreview" alt="Selected Image" class="img-thumbnail" width="100" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-info w-100">Add Item</button>
+      </form>
+    </div>
+
+    <!-- TABLE + FILTER -->
+    <div class="col-md-9">
+      <div class="mb-3">
+        <label class="form-label text-info">Filter by Category:</label>
+        <select class="form-select" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
+          <option [value]="0">All</option>
+          <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+        </select>
+      </div>
+
+      <div class="table-responsive bg-dark p-3 rounded shadow" style="max-height: 600px; overflow-y: auto;">
+        <table class="table table-dark table-hover table-bordered text-center align-middle">
+          <thead class="table-info">
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Available</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filteredMenuItems">
+              <td><img [src]="item.imageUrl" alt="Image" class="img-thumbnail" width="60" /></td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.category?.name }}</td>
+              <td>₹{{ item.price }}</td>
+              <td>
+                <span class="badge" [ngClass]="item.available ? 'bg-success' : 'bg-danger'">
+                  {{ item.available ? 'Yes' : 'No' }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="deleteItem(item.id)">
+                  🗑️ Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

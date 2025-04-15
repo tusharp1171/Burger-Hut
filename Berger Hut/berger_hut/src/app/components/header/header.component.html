@@ -1,0 +1,30 @@
+<header class="header">
+    <div class="container">
+      <a routerLink="/" class="logo">Burger Hut</a>
+  
+      <ul class="nav-links" [ngClass]="{ 'active': navOpen }">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li><a routerLink="/menu" routerLinkActive="active">Menu</a></li>
+        <li><a routerLink="/offers" routerLinkActive="active">Offers</a></li>
+        <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+      </ul>
+  
+      <div class="h-icons">
+        <a href="/feed"><i class='bx bx-photo-album'></i></a>
+        <!-- <a href="/feed"><i class='bx bx-images'></i></a>
+        <a href="/feed"><i class='bx bx-play-circle'></i></a>
+        <a href="/feed"><i class='bx bx-play-circle'></i></a>
+        <a href="/feed"><i class='bx bx-images'></i></a>  -->
+
+        <a href="/menu"><i class='bx bx-search'></i></a>
+        <a href="/cart"><i class='bx bx-cart'></i></a>
+        <a href="/auth"><i class='bx bx-user'></i></a>
+      
+      </div>
+  
+      <div class="hamburger" (click)="toggleNav()">
+        <i class='bx bx-menu'></i>
+      </div>
+    </div>
+  </header>
+  

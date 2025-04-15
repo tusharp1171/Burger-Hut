@@ -1,0 +1,48 @@
+package com.burgerhut.controller;
+
+import com.burgerhut.entity.Order;
+import com.burgerhut.entity.Payment;
+import com.burgerhut.exception.ResourceNotFoundException;
+import com.burgerhut.repository.OrderRepository;
+import com.burgerhut.service.PaymentService;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/payments")
+@RequiredArgsConstructor
+public class PaymentController {
+
+	@Autowired
+    private PaymentService paymentService;
+	@Autowired
+    private OrderRepository orderRepository;
+
+    // ✅ Process payment
+    @PostMapping
+    public ResponseEntity<Payment> processPayment(@RequestBody Payment payment) {
+        Payment savedPayment = paymentService.processPayment(payment);
+        return ResponseEntity.ok(savedPayment);
+    }
+
+    // ✅ Get payment by payment ID
+    @GetMapping("/{paymentId}")
+    public ResponseEntity<?> getPaymentById(@PathVariable Long paymentId) {
+        Payment payment = paymentService.getPaymentById(paymentId);
+        return ResponseEntity.ok(payment);
+    }
+
+    // ✅ Get payment by order ID
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<?> getPaymentByOrder(@PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + orderId));
+
+        return paymentService.getPaymentByOrder(order)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+}

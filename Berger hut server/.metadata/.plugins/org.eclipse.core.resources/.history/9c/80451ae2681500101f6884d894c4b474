@@ -1,0 +1,5 @@
+package com.burgerhut.service;
+
+public interface OrderService {
+
+}

@@ -1,0 +1,5 @@
+package com.burgerhut.controller;
+
+public class PaymentController {
+
+}

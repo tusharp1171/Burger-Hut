@@ -1,0 +1,5 @@
+package com.burgerhut.entity;
+
+public class ContactMessage {
+
+}

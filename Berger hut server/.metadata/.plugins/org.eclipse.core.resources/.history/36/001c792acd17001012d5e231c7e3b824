@@ -1,0 +1,5 @@
+package com.burgerhut.exception;
+
+public class OfferNotFoundException {
+
+}

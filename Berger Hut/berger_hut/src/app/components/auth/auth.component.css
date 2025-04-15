@@ -1,0 +1,105 @@
+.auth-container {
+  max-width: 800px; /* Increase the max width */
+  margin: 150px auto; /* Reduce margin-top to keep it centered better */
+  
+  background-image: url('http://localhost:4200/assets/images/hero-background1.jpg');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  
+  padding: 3rem; /* Increase padding to add more space inside the container */
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(255, 204, 0, 0.2);
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #ffcc00;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #2a2a2a;
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #ffcc00;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #ffcc00;
+  color: #111;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #e6b800;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.switch-btn {
+  margin-top: 1rem;
+  background-color: transparent;
+  color: #ffcc00;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.message {
+  margin-top: 1rem;
+  color: #ffcc00;
+  text-align: center;
+  font-weight: 500;
+}
+
+.error {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.8rem;
+  padding-left: 0.2rem;
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    margin: 40px 1rem;
+    padding: 2rem; /* Slightly reduce padding for smaller screens */
+    margin-top: 150px;
+  }
+
+  .auth-container h2 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+}

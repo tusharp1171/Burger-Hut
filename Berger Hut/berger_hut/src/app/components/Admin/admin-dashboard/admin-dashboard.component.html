@@ -1,0 +1,33 @@
+<div class="dashboard-container">
+  <h2 class="dashboard-title">📊 Admin Dashboard</h2>
+
+  <!-- Stat Cards -->
+  <div class="stats-grid">
+    <div 
+      class="stats-card" 
+      *ngFor="let stat of stats" 
+      [class.active]="selectedStat === stat.label" 
+      (click)="selectStat(stat.label)">
+      <div class="stat-label">{{ stat.label }}</div>
+      <div class="stat-value">
+        <span class="count">{{ stat.orders }}</span>
+        <span class="amount">₹{{ stat.totalAmount | number: '1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orders Section -->
+  <div class="orders-list" *ngIf="selectedOrders.length > 0">
+    <h3 class="orders-title">🧾 Orders - {{ selectedStat }}</h3>
+    <div class="order-item" *ngFor="let order of selectedOrders; let i = index">
+      <div class="order-left">
+        <strong>Order #{{ order.id }}</strong><br />
+        {{ order.createdAt | date: 'medium' }}
+      </div>
+      <div class="order-right">
+        <span class="order-status">{{ order.status }}</span>
+        <div class="order-amount">₹{{ getOrderAmount(order) | number: '1.2-2' }}</div>
+      </div>
+    </div>
+  </div>
+</div>

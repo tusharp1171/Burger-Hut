@@ -1,0 +1,50 @@
+.unauthorized-container {
+    text-align: center;
+    padding: 50px;
+    max-width: 500px;
+    margin: 100px auto;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fefefe;
+  }
+  
+  .unauthorized-container h1 {
+    color: #e74c3c;
+    margin-bottom: 20px;
+  }
+  
+  .unauthorized-container p {
+    color: #555;
+    margin-bottom: 30px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background-color: #3498db;
+    color: white;
+    transition: background-color 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  .logout-btn {
+    background-color: #e74c3c;
+  }
+  
+  .logout-btn:hover {
+    background-color: #c0392b;
+  }
+  

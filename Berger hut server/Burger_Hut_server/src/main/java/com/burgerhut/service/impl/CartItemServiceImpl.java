@@ -1,0 +1,35 @@
+package com.burgerhut.service.impl;
+
+import com.burgerhut.entity.Cart;
+import com.burgerhut.entity.CartItem;
+import com.burgerhut.repository.CartItemRepository;
+import com.burgerhut.service.CartItemService;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CartItemServiceImpl implements CartItemService {
+
+	@Autowired
+    private CartItemRepository cartItemRepository;
+
+    @Override
+    public CartItem addItemToCart(CartItem item) {
+        return cartItemRepository.save(item);
+    }
+
+    @Override
+    public List<CartItem> getItemsByCart(Cart cart) {
+        return cartItemRepository.findByCart(cart);
+    }
+
+    @Override
+    public void removeCartItem(Long id) {
+        cartItemRepository.deleteById(id);
+    }
+}
